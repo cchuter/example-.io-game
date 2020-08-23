@@ -24,9 +24,22 @@ class Player extends ObjectClass {
 
     // Fire a bullet, if needed
     this.fireCooldown -= dt;
+    
+    /*
     if (this.fireCooldown <= 0) {
       this.fireCooldown += Constants.PLAYER_FIRE_COOLDOWN;
-      return new Bullet(this.id, this.x, this.y, this.direction);
+      let bulletdirection = [this.direction[1], this.direction[0]];
+      //console.log(this.direction);
+      return new Bullet(this.id, this.x, this.y, this.direction - 1.0);
+    }
+    */
+    
+    this.fireCooldown -= dt;
+    if (this.fireCooldown <= 0) {
+      this.fireCooldown += Constants.PLAYER_FIRE_COOLDOWN;
+      let bulletdirection = [this.direction[1], this.direction[0]];
+      //console.log(this.direction);
+      return new Bullet(this.id, this.x, this.y, this.direction + 1.0);
     }
 
     return null;
