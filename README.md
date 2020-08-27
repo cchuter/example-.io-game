@@ -1,3 +1,3 @@
 
-Forked from [here](https://victorzhou.com/blog/build-an-io-game-part-1/).
+Forked from [here](https://github.com/vzhou842/example-.io-game).
 

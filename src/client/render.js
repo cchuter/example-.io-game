@@ -56,10 +56,34 @@ function renderBackground(x, y) {
     backgroundY,
     MAP_SIZE / 2,
   );
-  backgroundGradient.addColorStop(0, 'black');
+  backgroundGradient.addColorStop(0, 'darkblue');
   backgroundGradient.addColorStop(1, 'gray');
   context.fillStyle = backgroundGradient;
   context.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+function imageToCanvas(image){
+    const c = document.createElement("canvas");
+    c.width = image.width;
+    c.height = image.height;
+    c.ctx = c.getContext("2d"); // attach context to the canvas for eaasy reference
+    c.ctx.drawImage(image,0,0);
+    return c;
+}
+
+function colorImage(image,color){ // image is a canvas image
+     image.ctx.fillStyle = color;
+     image.ctx.globalCompositeOperation = "color";
+     image.ctx.fillRect(0,0,image.width,image.height);
+     image.ctx.globalCompositeOperation = "source-over";
+     return image;
+}
+
+function maskImage(dest,source){
+     dest.ctx.globalCompositeOperation = "destination-in";
+     dest.ctx.drawImage(source,0,0);
+     dest.ctx.globalCompositeOperation = "source-over";
+     return dest;
 }
 
 // Renders a ship at the given coordinates
@@ -69,6 +93,8 @@ function renderPlayer(me, player) {
   const canvasY = canvas.height / 2 + y - me.y;
 
   // Draw ship
+  const randomColor = 'hsl(' + 360 * Math.random() + ', 50%, 50%)';
+
   context.save();
   context.translate(canvasX, canvasY);
   context.rotate(direction);
